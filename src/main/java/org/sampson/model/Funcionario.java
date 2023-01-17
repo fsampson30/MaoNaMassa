@@ -6,7 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Funcionario extends Pessoa {
@@ -83,7 +84,8 @@ public class Funcionario extends Pessoa {
     }
 
     public void mapEmployees() {
-        System.out.println(funcionarios.stream().map(funcionario -> funcionario.getFuncao()).collect(Collectors.toList()));
+        Map<String, List<Funcionario>> groupedList = funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
+        System.out.println(groupedList);
     }
 
     public void showBirthdayList() {
@@ -95,6 +97,19 @@ public class Funcionario extends Pessoa {
             }
        }
         System.out.println("Aniversariantes: " + "'\n'" +  birthdayList);
+    }
+
+    public void showOldestEmployee(){
+        Funcionario oldest = new Funcionario();
+        int greaterAge = 0;
+        for (Funcionario funcionario: funcionarios) {
+            int currentAge = Math.abs(funcionario.getDataNascimento().compareTo(LocalDate.now()));
+            if (currentAge > greaterAge) {
+                greaterAge = currentAge;
+                oldest = funcionario;
+            }
+        }
+        System.out.println("Funcionário com maior idade: " + oldest.getNome() + " Idade: " + greaterAge);
     }
 
     @Override
