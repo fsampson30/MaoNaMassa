@@ -1,13 +1,14 @@
 package org.sampson.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Funcionario extends Pessoa {
@@ -89,20 +90,20 @@ public class Funcionario extends Pessoa {
     }
 
     public void showBirthdayList() {
-       ArrayList<Funcionario> birthdayList = new ArrayList<>();
-        for (Funcionario funcionario: funcionarios) {
-            if (funcionario.getDataNascimento().getMonthValue() == 05 ||
+        ArrayList<Funcionario> birthdayList = new ArrayList<>();
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getDataNascimento().getMonthValue() == 10 ||
                     funcionario.getDataNascimento().getMonthValue() == 12) {
                 birthdayList.add(funcionario);
             }
-       }
-        System.out.println("Aniversariantes: " + "'\n'" +  birthdayList);
+        }
+        System.out.println("Aniversariantes: " + "'\n'" + birthdayList);
     }
 
-    public void showOldestEmployee(){
+    public void showOldestEmployee() {
         Funcionario oldest = new Funcionario();
         int greaterAge = 0;
-        for (Funcionario funcionario: funcionarios) {
+        for (Funcionario funcionario : funcionarios) {
             int currentAge = Math.abs(funcionario.getDataNascimento().compareTo(LocalDate.now()));
             if (currentAge > greaterAge) {
                 greaterAge = currentAge;
@@ -110,6 +111,26 @@ public class Funcionario extends Pessoa {
             }
         }
         System.out.println("Funcionário com maior idade: " + oldest.getNome() + " Idade: " + greaterAge);
+    }
+
+    public void listAllAlphabetically() {
+        List<Funcionario> sortedList = funcionarios.stream().sorted(Comparator.comparing(Pessoa::getNome)).collect(Collectors.toList());
+        System.out.println(sortedList);
+    }
+
+    public void showSummedSalaries() {
+        BigDecimal summedSalaries = BigDecimal.ZERO;
+        for (Funcionario funcionario : funcionarios) {
+            summedSalaries = summedSalaries.add(funcionario.getSalario());
+        }
+        System.out.println("Total dos salários somados: " + NumberFormat.getCurrencyInstance().format(summedSalaries));
+    }
+
+    public void listAmountOfSalariesPerPerson() {
+        for (Funcionario funcionario : funcionarios){
+            BigDecimal amount = funcionario.getSalario().divide(BigDecimal.valueOf(1212.00),2, RoundingMode.HALF_UP);
+            System.out.println("Funcionário " + funcionario.getNome() + " recebe " + amount + " salários mínimos");
+        }
     }
 
     @Override

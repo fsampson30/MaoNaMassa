@@ -2,9 +2,6 @@ package org.sampson;
 
 import org.sampson.model.Funcionario;
 
-import java.util.Objects;
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -29,6 +26,12 @@ public class Main {
         funcionario.showBirthdayList();
 
         funcionario.showOldestEmployee();
+
+        funcionario.listAllAlphabetically();
+
+        funcionario.showSummedSalaries();
+
+        funcionario.listAmountOfSalariesPerPerson();
 
 
     }
