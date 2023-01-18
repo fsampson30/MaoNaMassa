@@ -1,11 +1,12 @@
 package org.sampson;
 
 import org.sampson.model.Funcionario;
+import org.sampson.service.FuncionarioServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
 
-        Funcionario funcionario = new Funcionario();
+        FuncionarioServiceImpl funcionario = new FuncionarioServiceImpl();
 
         funcionario.populateDatabase();
         funcionario.listAll();
