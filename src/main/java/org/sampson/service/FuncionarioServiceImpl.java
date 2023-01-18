@@ -50,6 +50,7 @@ public class FuncionarioServiceImpl implements FuncionarioService{
         Funcionario removed = funcionarios.stream().filter(funcionario -> funcionario.getNome().equals(name)).findFirst().orElseThrow(() ->
                 new RuntimeException("Funcionário não encontrado"));
         funcionarios.remove(removed);
+        listAll();
     }
 
     public void setRaise() {
